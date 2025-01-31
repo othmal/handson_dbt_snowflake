@@ -2,6 +2,7 @@ version: 2
 
 sources:
   - name: jaffle_shop
+    description : clone on some db
     database: raw
     schema : jaffle_shop
     freshness: # default freshness
@@ -10,5 +11,8 @@ sources:
     loaded_at_field: _etl_loaded_at
     tables:
       - name: customers
+        columns:
+          - name: ID
+            description: PK
         freshness: null
       - name: orders   
