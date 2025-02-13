@@ -1,8 +1,8 @@
 WITH customers AS (
     SELECT * FROM {{ ref('stg_jaffle_shop__customers') }}
 )
-,fct_orders AS (
-    SELECT * FROM {{ ref('fct_orders') }}
+,int_orders AS (
+    SELECT * FROM {{ ref('int_orders') }}
 )
 ,customer_orders AS (
     SELECT 
@@ -19,8 +19,7 @@ WITH customers AS (
         --,count(order_id) OVER (PARTITION BY customer_id) AS number_of_orders
         ,sum(total_amount_paid) OVER (PARTITION BY customer_id) AS lifetime_value
         ,order_date
-     FROM fct_orders
-     
+     FROM int_orders    
 )
 ,final AS (
     SELECT 
