@@ -6,17 +6,16 @@ WITH payments AS (
 )
 ,order_payments AS(
     SELECT 
-        order_id,
-        SUM(CASE WHEN STATUS='success' THEN amount END) AS amount
+        order_id
+        , max(created_at) AS payment_finalized_date
+        , SUM(amount) AS total_amount_paid
     FROM payments
+    WHERE STATUS <> 'fail'
     GROUP BY 1    
 )
 ,final AS (
     SELECT 
-        orders.customer_id
-        , orders.order_id
-        , orders.order_date
-        , order_payments.AMOUNT AS amount
+        *
     FROM orders
     LEFT JOIN order_payments using (order_id)
 )
