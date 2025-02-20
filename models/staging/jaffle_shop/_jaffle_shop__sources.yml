@@ -15,5 +15,4 @@ sources:
         columns:
           - name: ID
             description: PK
-        freshness: null
       - name: orders   
